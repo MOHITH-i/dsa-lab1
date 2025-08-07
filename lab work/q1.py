@@ -1,0 +1,45 @@
+class queue:
+    def __init__(self,cap):
+        self.a=[0]*cap
+        self.cap=cap
+        self.front=-1
+        self.rare=-1
+    
+    def enqueue(self,value):
+        if (self.rare==self.cap-1):
+            print("overflow")
+            return
+        if self.front==-1 and self.rare==-1:
+            self.front=self.rare=0
+        else:
+            self.rare=self.rare+1
+        self.a[self.rare]=value
+
+
+    def dequeue(self):
+        if self.front==-1 or self.front>self.rare:
+            print("underflow") 
+            return
+        else:
+            element=self.a[self.front]
+            self.front=self.front+1  
+ 
+    def display(self):
+        if self.front==-1 or self.front>self.rare:
+            print("queue is empty") 
+            return
+        else:
+            print("the elements in the queue are:\n")
+            for i in range(self.front,self.rare+1):
+                print(self.a[i],end=" ")
+            print()
+
+
+if __name__ =="__main__":
+    a=queue(5)
+    a.enqueue(10)
+    a.display()
+    a.enqueue(20)
+    a.display()
+    a.dequeue()
+    a.display()
