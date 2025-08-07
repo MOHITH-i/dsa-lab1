@@ -1,0 +1,109 @@
+arr = [64, 34, 25, 5, 22]
+
+for i in range(1, len(arr)):
+    temp= arr[i]
+    j = i - 1
+
+    while j >= 0 and arr[j] > temp:
+        arr[j + 1] = arr[j]
+        j=j-1
+
+    arr[j + 1] =temp
+
+print(arr)
+
+
+                                                       #merge sort
+
+def merge_sort(arr):
+    mid = len(arr) // 2
+    starting = merge_sort(arr[:mid])
+    ending = merge_sort(arr[mid:])
+
+    return merge(starting, ending)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]: 
+            result.append(left[i])
+            i=i+1
+        else:
+            result.append(right[j])
+            j =j+ 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+array= [64, 34, 25, 5, 22]
+output = merge_sort(array)
+
+print("Sorted Output:", output)
+
+
+
+####################time complexity
+
+
+
+import time
+def insertion_sort(arr):
+    for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+
+        arr[j + 1] = key
+    return arr
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+
+test_input = [64, 34, 25, 5, 22]
+
+insertion_copy = test_input.copy()
+start = time.time()
+sorted_insertion = insertion_sort(insertion_copy)
+insertion_time = time.time() - start
+
+
+merge_copy = test_input.copy()
+start = time.time()
+sorted_merge = merge_sort(merge_copy)
+merge_time = time.time() - start
+print("Test Input:", test_input)
+print("Sorted using Insertion Sort:", sorted_insertion)
+print("Sorted using Merge Sort:", sorted_merge)
+
+print("\n--- Performance on Small List ---")
+print(f"Insertion Sort Time: {insertion_time:.10f} seconds")
+print(f"Merge Sort Time:     {merge_time:.10f} seconds")
